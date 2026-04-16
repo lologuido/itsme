@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lauren Guido — Filmmaker</title>
+  <meta name="description" content="Lauren Guido is a filmmaker and producer based in New York City.">
+
+  <style>
+    /* ================================================================
+       FONTS
+       Playfair Display 700 / 700-italic  → display headers + project titles
+       DM Sans 300 / 400 / 500            → UI, labels, body
+       Share Tech Mono                    → placeholder labels only
+       Cormorant Garamond italic 300      → About bio copy
+       ================================================================ */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+
+    /* LAUREN: place RASCAL__.TTF in the same folder as this HTML file
+       Download from: https://www.dafont.com/rascal.font */
+    @font-face {
+      font-family: 'Rascal';
+      src: url('RASCAL__.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ================================================================
+       RESET & BASE
+       ================================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #F5F0E0;
+      color: #0A0A0A;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ================================================================
+       NAVIGATION — fixed top bar
+       ================================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 52px;
+      background-color: #F5F0E0;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* Rascal — nav name is personality/identity */
+    .nav-name {
+      font-family: 'Rascal', cursive;
+      font-weight: normal;
+      font-size: 16px;
+      letter-spacing: 0.01em;
+      color: #0A0A0A;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    /* DM Sans 500, 10px, uppercase */
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #0A0A0A;
+      transition: opacity 0.18s;
+    }
+    .nav-links a:hover { opacity: 0.55; }
+    .nav-links a.active {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Mobile hamburger — hidden on desktop */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 1px;
+      background-color: #0A0A0A;
+    }
+
+    /* ================================================================
+       SECTION BAND — large colored header band
+       Used for WORK., ABOUT., CONTACT.
+       ================================================================ */
+    .section-band {
+      padding: clamp(2.75rem, 5.5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .section-band.band-yellow  { background-color: #F2C94C; }
+    .section-band.band-purple  { background-color: #C8A8D4; }
+    .section-band.band-green   { background-color: #8EC4A0; }
+
+    /* WORK. hero header → Rascal (personality) */
+    .band-title {
+      font-family: 'Rascal', cursive;
+      font-weight: normal;
+      font-style: normal;
+      font-size: clamp(68px, 10.5vw, 110px);
+      letter-spacing: -3px;
+      line-height: 0.95;
+      color: #0A0A0A;
+    }
+
+    /* ABOUT. and CONTACT. section headers → Rascal (matches WORK. personality) */
+    #about .band-title,
+    #contact .band-title {
+      font-family: 'Rascal', cursive;
+      font-style: normal;
+      font-weight: normal;
+      letter-spacing: -3px;
+    }
+
+    /* ================================================================
+       FILTER PILLS
+       ================================================================ */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      padding: 1.6rem clamp(1.5rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    /* DM Sans 400, 10px, uppercase */
+    .pill {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background: transparent;
+      color: #0A0A0A;
+      border: 1px solid #0A0A0A;
+      border-radius: 100px;
+      padding: 7px 18px;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .pill.active {
+      background-color: #0A0A0A;
+      color: #F5F0E0;
+    }
+    .pill:hover:not(.active) { background-color: rgba(10,10,10,0.06); }
+
+    /* ================================================================
+       PROJECT GRID
+       ================================================================ */
+    .proj-grid-wrap {
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 28px;
+      row-gap: 52px;
+    }
+
+    /* ----------------------------------------------------------------
+       SINGLE-COLUMN card (5th project) — full-width row, left-aligned
+       content, max-width ~560px
+    ---------------------------------------------------------------- */
+    .proj-card.single {
+      grid-column: 1 / -1;
+    }
+
+    .proj-card.single .proj-img {
+      max-width: 560px;
+    }
+
+    .proj-card.single .proj-info {
+      max-width: 560px;
+      text-align: left;
+    }
+
+    /* ----------------------------------------------------------------
+       CARD BASE
+    ---------------------------------------------------------------- */
+    .proj-card {
+      /* transitions used by filter JS */
+      transition: opacity 0.26s ease, transform 0.26s ease;
+      position: relative;
+    }
+
+    /* Invisible overlay link for cards that have detail pages */
+    .card-link {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 10;
+      display: block;
+    }
+
+    .proj-card:has(.card-link) {
+      cursor: pointer;
+    }
+
+    .proj-card.hidden {
+      display: none;
+    }
+
+    /* ---- Image placeholder ---- */
+    .proj-img {
+      width: 100%;
+      height: 220px;          /* default all rows */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 0.95rem;
+      cursor: pointer;
+      transition: opacity 0.22s;
+    }
+    .proj-img:hover { opacity: 0.88; }
+
+    /* First row (cards 1–2): taller images + larger titles */
+    .proj-grid .proj-card:nth-child(-n+2) .proj-img {
+      height: 260px;
+    }
+    .proj-grid .proj-card:nth-child(-n+2) .proj-title {
+      font-size: 36px;
+    }
+
+    /* Single-column card overrides the above if it fell in first 2 */
+    .proj-card.single .proj-img {
+      height: 220px;
+    }
+    .proj-card.single .proj-title {
+      font-size: 28px !important;
+    }
+
+    /* Share Tech Mono — placeholder label text only */
+    .proj-img-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(10, 10, 10, 0.32);
+      text-align: center;
+      padding: 0.75rem;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ---- Caption block ---- */
+    .proj-info {
+      text-align: center;
+    }
+
+    /* DM Sans 400, 9px, uppercase — category label */
+    .proj-category {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(10, 10, 10, 0.5);
+      margin-bottom: 0.42rem;
+    }
+
+    /* Cormorant Garamond italic — project titles (elegance) */
+    .proj-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 28px;
+      line-height: 1.15;
+      color: #0A0A0A;
+      margin-bottom: 0.3rem;
+    }
+
+    /* DM Sans 300, 11px, muted — project role */
+    .proj-role {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(10, 10, 10, 0.5);
+    }
+
+    /* ================================================================
+       ABOUT SECTION
+       ================================================================ */
+    .about-body {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: start;
+      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* Photo placeholder — thin black border, 1deg rotation */
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background-color: #E6DDD0;
+      border: 1px solid #0A0A0A;
+      transform: rotate(1deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Share Tech Mono — placeholder label only */
+    .about-photo-ph {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(10, 10, 10, 0.32);
+      text-align: center;
+      line-height: 1.9;
+      padding: 2rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /*
+      LAUREN: to swap in your headshot, replace the .about-photo div's
+      contents with:
+        <img src="your-headshot.jpg" alt="Lauren Guido"
+             style="width:100%;height:100%;object-fit:cover;display:block;">
+      The border and rotation apply automatically via CSS.
+    */
+
+    /* Bio text — Cormorant Garamond italic 300, 17px */
+    .about-bio {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #0A0A0A;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Credits block */
+    .credits-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: rgba(10, 10, 10, 0.45);
+      margin-bottom: 1rem;
+    }
+
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .credit-item {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 1.55;
+      color: #0A0A0A;
+    }
+
+    /* Skills line — DM Sans 300 italic, muted */
+    .skills-line {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 11px;
+      color: rgba(10, 10, 10, 0.5);
+      line-height: 1.7;
+    }
+
+    /* ================================================================
+       CONTACT SECTION
+       ================================================================ */
+    .contact-body {
+      padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.75rem;
+    }
+
+    /* Playfair Display italic — large email link */
+    .contact-email {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: #0A0A0A;
+      border-bottom: 1px solid #0A0A0A;
+      padding-bottom: 3px;
+      transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.55; }
+
+    .contact-ext-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    /* DM Sans 500, 11px, uppercase */
+    .contact-ext-link {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      transition: opacity 0.18s;
+    }
+    .contact-ext-link:hover { opacity: 0.55; }
+
+    /* ================================================================
+       FOOTER — yellow band, 3-column
+       ================================================================ */
+    footer {
+      background-color: #F2C94C;
+      padding: clamp(2rem, 4vw, 3.25rem) clamp(1.5rem, 5vw, 4rem);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    /* DM Sans 500, 11px, uppercase */
+    .footer-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #0A0A0A;
+      transition: opacity 0.18s;
+    }
+    .footer-links a:hover { opacity: 0.55; }
+
+    /* Playfair Display 700 (non-italic), 36px, centered */
+    .footer-name {
+      font-family: 'Rascal', cursive;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 36px;
+      line-height: 1.0;
+      text-align: center;
+      color: #0A0A0A;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+    }
+
+    /* DM Sans 400, 10px, muted */
+    .footer-copy,
+    .footer-location {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      color: rgba(10, 10, 10, 0.5);
+    }
+
+    /* ================================================================
+       RESPONSIVE — TABLET (≤900px)
+       ================================================================ */
+    @media (max-width: 900px) {
+      .about-body { grid-template-columns: 260px 1fr; gap: 2rem; }
+      .credits-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+
+    /* ================================================================
+       RESPONSIVE — MOBILE (≤680px)
+       ================================================================ */
+    @media (max-width: 680px) {
+      /* Nav: show toggle, hide links */
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 52px; left: 0; right: 0;
+        background-color: #F5F0E0;
+        border-bottom: 1px solid rgba(10,10,10,0.08);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 1.5rem 1.25rem;
+        gap: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li a {
+        display: block;
+        padding: 0.6rem 0;
+        font-size: 11px;
+      }
+
+      /* Single-column project grid */
+      .proj-grid { grid-template-columns: 1fr; }
+
+      /* Reset first-row overrides — all cards same size on mobile */
+      .proj-grid .proj-card:nth-child(-n+2) .proj-img { height: 220px; }
+      .proj-grid .proj-card:nth-child(-n+2) .proj-title { font-size: 28px; }
+
+      /* Single card fills full width */
+      .proj-card.single .proj-img { max-width: 100%; }
+      .proj-card.single .proj-info { text-align: center; }
+
+      /* About stacks vertically */
+      .about-body { grid-template-columns: 1fr; }
+      .about-photo { max-width: 260px; transform: rotate(1deg); }
+
+      /* Footer stacks */
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { align-items: center; }
+      .footer-right { align-items: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <nav class="nav" role="navigation" aria-label="Main">
+
+    <!-- DM Sans 400, 11px -->
+    <span class="nav-name">Lauren Guido · Filmmaker</span>
+
+    <!-- Mobile toggle -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work" class="active" id="nav-work">Work</a></li>
+      <li><a href="about.html" id="nav-about">About</a></li>
+      <li><a href="#contact" id="nav-contact">Contact</a></li>
+    </ul>
+
+  </nav>
+
+
+  <!-- ================================================================
+       WORK SECTION
+       ================================================================ -->
+  <section id="work" style="padding-top: 52px;">
+
+    <!-- Yellow header band — "WORK." Playfair italic -->
+    <div class="section-band band-yellow">
+      <h1 class="band-title">WORK.</h1>
+    </div>
+
+    <!-- Filter pills -->
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+      <button class="pill active" data-filter="all">All</button>
+      <button class="pill" data-filter="documentary">Documentary</button>
+      <button class="pill" data-filter="scripted">Scripted</button>
+      <button class="pill" data-filter="live">Live</button>
+      <button class="pill" data-filter="journalism">Journalism</button>
+      <button class="pill" data-filter="marketing">Marketing</button>
+    </div>
+
+    <!-- Project grid -->
+    <div class="proj-grid-wrap">
+      <div class="proj-grid" id="projGrid">
+
+        <!-- ============================================================
+             ROW 1 — cards 1–2 get 260px images + 36px titles
+             ============================================================ -->
+
+        <!-- PROJECT 1: NEW HERE -->
+        <div class="proj-card" data-category="documentary">
+          <a href="new-here.html" class="card-link" aria-label="View New Here project"></a>
+          <div class="proj-img" style="background-image: url('NH hero 2.png'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Documentary</span>
+            <h2 class="proj-title">New Here</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: THE STREAM -->
+        <div class="proj-card" data-category="scripted">
+          <a href="the-stream.html" class="card-link" aria-label="View The Stream project"></a>
+          <div class="proj-img" style="background-image: url('streamwebsite.jpeg'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Scripted</span>
+            <h2 class="proj-title">The Stream</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             ROW 2
+             ============================================================ -->
+
+        <!-- PROJECT 3: CHARLIE BLOOD -->
+        <div class="proj-card" data-category="scripted">
+          <a href="charlie-blood.html" class="card-link" aria-label="View Charlie Blood project"></a>
+          <div class="proj-img" style="background-image: url('CB.PNG'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Scripted</span>
+            <h2 class="proj-title">Charlie Blood</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+        <!-- PROJECT 4: LIBRARY OF CONGRESS: NATIONAL BOOK FESTIVAL -->
+        <div class="proj-card" data-category="live">
+          <a href="national-book-festival.html" class="card-link" aria-label="View National Book Festival project"></a>
+          <div class="proj-img" style="background-image: url('LOC NBF.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Live</span>
+            <h2 class="proj-title">Library of Congress: National Book Festival</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             ROW 3 — SINGLE-COLUMN CARD (5th project, visual rhythm break)
+             ============================================================ -->
+
+        <!-- PROJECT 5: READ, WRITE, ROAR! -->
+        <div class="proj-card single" data-category="live">
+          <a href="read-write-roar.html" class="card-link" aria-label="View Read, Write, Roar! project"></a>
+          <div class="proj-img" style="background-image: url('read-write-roar-1000px.jpeg'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Live</span>
+            <h2 class="proj-title">Read, Write, Roar!</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             ROW 4
+             ============================================================ -->
+
+        <!-- PROJECT 6: PBS DETROIT -->
+        <div class="proj-card" data-category="journalism">
+          <a href="pbs-detroit.html" class="card-link" aria-label="View PBS Detroit project"></a>
+          <div class="proj-img" style="background-image: url('PBS.png'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Journalism</span>
+            <h2 class="proj-title">PBS Detroit</h2>
+            <p class="proj-role">Assistant Producer &amp; Writer</p>
+          </div>
+        </div>
+
+        <!-- PROJECT 7: ONE DETROIT -->
+        <!-- LAUREN: swap your still image here when ready -->
+        <div class="proj-card" data-category="marketing">
+          <a href="one-detroit.html" class="card-link" aria-label="View One Detroit project"></a>
+          <!-- SWAP: background-image: url('your-one-detroit-image.jpg'); background-size: cover; background-position: center; -->
+          <div class="proj-img" style="background-image: url('ONE_DETROIT_PROMO.jpeg'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Marketing</span>
+            <h2 class="proj-title">One Detroit</h2>
+            <p class="proj-role">Video Production</p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             ROW 5
+             ============================================================ -->
+
+        <!-- PROJECT 8: MACKINAC ISLAND -->
+        <div class="proj-card" data-category="marketing">
+          <a href="mackinac-island.html" class="card-link" aria-label="View Mackinac Island project"></a>
+
+          <div class="proj-img" style="background-image: url('Mackinac.png'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Marketing</span>
+            <h2 class="proj-title">Mackinac Island Franchise</h2>
+            <p class="proj-role">Media Content Producer</p>
+          </div>
+        </div>
+
+        <!-- PROJECT 9: INHUMAN -->
+        <div class="proj-card" data-category="scripted">
+          <a href="inhuman.html" class="card-link" aria-label="View Inhuman project"></a>
+          <div class="proj-img" style="background-image: url('INHUMAN.PNG'); background-size: cover; background-position: center;"></div>
+          <div class="proj-info">
+            <span class="proj-category">Scripted</span>
+            <h2 class="proj-title">Inhuman</h2>
+            <p class="proj-role">Producer</p>
+          </div>
+        </div>
+
+      </div><!-- /proj-grid -->
+    </div><!-- /proj-grid-wrap -->
+
+  </section>
+
+
+  <!-- ================================================================
+       CONTACT SECTION
+       ================================================================ -->
+  <section id="contact">
+
+    <!-- Yellow header band — same style as WORK. -->
+    <div class="section-band band-green">
+      <h2 class="band-title">CONTACT.</h2>
+    </div>
+
+    <div class="contact-body">
+
+      <!--
+        LAUREN: add your email here.
+        Replace laurenmguido@gmail.com in BOTH the href and the display text below.
+      -->
+      <a href="mailto:laurenmguido@gmail.com" class="contact-email">laurenmguido@gmail.com</a>
+
+      <!--
+      <div class="contact-ext-links">
+        <a href="https://www.imdb.com/name/nm9623382/?ref_=ext_shr_lnk" class="contact-ext-link" target="_blank" rel="noopener noreferrer">IMDB ↗</a>
+        <a href="https://www.linkedin.com/in/lauren-guido-519b30159" class="contact-ext-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================================================
+       FOOTER — yellow band, 3-column
+       ================================================================ -->
+  <footer>
+
+    <!-- Left: stacked nav links -->
+    <ul class="footer-links">
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#work">Work</a></li>
+    </ul>
+
+    <!-- Center: name in Playfair Display 700, 36px -->
+    <div class="footer-name">
+      Lauren<br>Guido
+    </div>
+
+    <!-- Right: copyright + location -->
+    <div class="footer-right">
+      <!-- LAUREN: update copyright year if needed -->
+      <span class="footer-copy">© 2026</span>
+      <span class="footer-location">Filmmaker · NYC</span>
+    </div>
+
+  </footer>
+
+
+  <!-- ================================================================
+       JAVASCRIPT — vanilla only.
+       1. Mobile nav toggle
+       2. Filter pills
+       3. Scroll-based nav active state
+       ================================================================ -->
+  <script>
+    /* -------------------------------------------------------
+       1. MOBILE NAV TOGGLE
+    ------------------------------------------------------- */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Close nav when a link is clicked
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+
+    /* -------------------------------------------------------
+       2. FILTER PILLS
+       data-category on each card matches data-filter on pills.
+       Fade out → display:none, then display:block → fade in.
+    ------------------------------------------------------- */
+    const pills = document.querySelectorAll('.pill');
+    const cards = document.querySelectorAll('.proj-card');
+    let activeFilter = 'all';
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const filter = pill.dataset.filter;
+        if (filter === activeFilter) return; // no-op if same
+
+        activeFilter = filter;
+
+        // Update active pill style
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+
+          if (match) {
+            // Show: remove hidden, then fade in
+            card.classList.remove('hidden');
+            // Force reflow so transition fires
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                card.style.opacity   = '1';
+                card.style.transform = 'translateY(0)';
+              });
+            });
+          } else {
+            // Fade out, then hide after transition
+            card.style.opacity   = '0';
+            card.style.transform = 'translateY(8px)';
+            setTimeout(() => {
+              // Only hide if filter hasn't changed mid-transition
+              if (filter === activeFilter) {
+                card.classList.add('hidden');
+              }
+            }, 280);
+          }
+        });
+      });
+    });
+
+
+    /* -------------------------------------------------------
+       3. SCROLL-BASED NAV ACTIVE STATE
+       Updates the active underline as user scrolls sections.
+    ------------------------------------------------------- */
+    const sections = [
+      document.getElementById('work'),
+      document.getElementById('contact'),
+    ];
+
+    const navAnchors = {
+      work:    document.getElementById('nav-work'),
+      contact: document.getElementById('nav-contact'),
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          Object.values(navAnchors).forEach(a => a.classList.remove('active'));
+          const key = entry.target.id;
+          if (navAnchors[key]) navAnchors[key].classList.add('active');
+        }
+      });
+    }, {
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(s => { if (s) sectionObserver.observe(s); });
+
+  </script>
+
+</body>
+</html>
